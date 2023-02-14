@@ -11,7 +11,15 @@ const GlobalStyles = createGlobalStyle`
 html, body {
     font-size: 10px;
     font-family: 'Noto Sans KR', sans-serif;
+    height: 100%;
 }
+
+body > div:first-child,
+      div#__next,
+      div#__next > div {
+        height: 100%;
+}
+
 
 
 /* Google Fonts */
