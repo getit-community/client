@@ -1,8 +1,11 @@
 import type { AppProps } from 'next/app';
 import GlobalStyles from 'styles/globalStyles';
 import Head from 'next/head';
+import { Provider } from 'react-redux';
+import { wrapper } from 'store/index';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
   return (
     <>
       <Head>
@@ -11,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <GlobalStyles />
-      <Component {...pageProps} />;
+      <Provider store={store}>
+        <Component {...props.pageProps} />;
+      </Provider>
     </>
   );
 }
