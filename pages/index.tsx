@@ -1,43 +1,10 @@
-import type { NextPage } from 'next';
+import AppLayout from 'components/appLayout';
+import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login, logout } from 'reducers/user';
 
-const Home: NextPage = () => {
-  const dispatch = useDispatch();
+interface Props {}
 
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onChangeId = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const id = event.target.value;
-      setId(id);
-    },
-    [],
-  );
-
-  const onChangePassword = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const password = event.target.value;
-      setPassword(password);
-    },
-    [],
-  );
-
-  const onSubmitForm = useCallback(
-    (event: React.FormEvent) => {
-      event.preventDefault();
-      dispatch(login({ id, password }));
-    },
-    [id, password],
-  );
-
-  const onLogout = useCallback(() => {
-    dispatch(logout());
-  }, []);
-
+const Home: NextPage<Props> = () => {
   return (
     <div>
       <Head>
@@ -46,33 +13,17 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div
-        style={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <form onSubmit={onSubmitForm}>
-          <h1>로그인</h1>
-          <br />
-
-          <input type='text' onChange={onChangeId} />
-          <br />
-          <input type='text' onChange={onChangePassword} />
-          <br />
-          <div style={{ textAlign: 'center' }}>
-            <button>로그인</button>
-          </div>
-        </form>
-        <div>
-          <button onClick={onLogout}>로그아웃</button>
-        </div>
-      </div>
+      <AppLayout>
+        <div>post list</div>
+      </AppLayout>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {},
+  };
 };
 
 export default Home;
