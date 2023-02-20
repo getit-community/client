@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import Logo from 'components/appLayout/sections/Logo';
 
 export interface ImageSize {
   width: string;
@@ -10,6 +9,13 @@ const Container = styled.div`
   padding-top: 12rem;
   display: flex;
   flex-direction: column;
+
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 `;
 
 const SearchLogoContainer = styled.div`
@@ -39,12 +45,13 @@ const LogoContainer = styled.div`
   height: 5.2rem;
 `;
 
-const Logo = styled.a`
+const LogoLink = styled.a`
   font-size: 4.2rem;
   font-weight: 600;
   color: #4dd290;
   line-height: 4.5rem;
   padding: 1rem;
+  text-decoration: none;
 `;
 
 const Title = styled.span`
@@ -94,7 +101,7 @@ export {
   Container,
   SearchLogoContainer,
   LogoContainer,
-  Logo,
+  LogoLink,
   Title,
   SearchForm,
   SearchInputContainer,

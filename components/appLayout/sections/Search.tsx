@@ -5,7 +5,7 @@ import {
   Container,
   SearchLogoContainer,
   LogoContainer,
-  Logo,
+  LogoLink,
   Title,
   SearchForm,
   SearchInputContainer,
@@ -20,13 +20,8 @@ const Search = () => {
       <SearchLogoContainer>
         <SearchFormContainer>
           <LogoContainer>
-            <Link href='https://naver.com'>
-              <Logo>
-                {/* <ImageContainer width='4.2rem' height='4.2rem'>
-                  <Image src={GetitLogo} alt='getit logo' layout='fill' />
-                </ImageContainer> */}
-                G
-              </Logo>
+            <Link href='https://naver.com' passHref>
+              <LogoLink>G</LogoLink>
             </Link>
             <Title>Getit</Title>
           </LogoContainer>
