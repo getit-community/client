@@ -8,4 +8,12 @@ const Container = styled.div`
   z-index: 20;
 `;
 
-export { Container };
+const MenuIconsContainer = styled.div`
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export { Container, MenuIconsContainer };

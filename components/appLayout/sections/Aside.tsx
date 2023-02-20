@@ -1,8 +1,15 @@
 import React from 'react';
-import { Container } from './AsideStyles';
+import { Container, MenuIconsContainer } from './AsideStyles';
+import { MenuIcons } from 'assets/Icons';
 
 const Aside = () => {
-  return <Container>Aside</Container>;
+  return (
+    <Container>
+      <MenuIconsContainer>
+        <MenuIcons width={'3.4rem'} height={'3.4rem'} />
+      </MenuIconsContainer>
+    </Container>
+  );
 };
 
 export default Aside;

@@ -1,8 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ImageContainer } from 'components/commons';
-import Mic from 'assets/Icons/MicIcons';
-// import Mic from 'public/static/images/mic.svg';
+import { MicIcons } from 'assets/Icons';
 import {
   Container,
   SearchLogoContainer,
@@ -43,10 +41,7 @@ const Search = () => {
           </SearchForm>
 
           <MicContainer>
-            {/* <ImageContainer width='3.6rem' height='3.6rem'> */}
-            {/* <Image src={Mic} alt='mic' /> */}
-            <Mic color='#4dd290' width={3.6} height={3.6} />
-            {/* </ImageContainer> */}
+            <MicIcons width={'3.6rem'} height={'3.6rem'} color={'#4dd290'} />
           </MicContainer>
         </SearchFormContainer>
       </SearchLogoContainer>
