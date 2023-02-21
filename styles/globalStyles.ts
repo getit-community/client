@@ -12,6 +12,7 @@ html, body {
     font-size: 10px;
     font-family: 'Noto Sans KR', sans-serif;
     height: 100%;
+    overflow: hidden;
 }
 
 body > div:first-child,
@@ -20,6 +21,9 @@ body > div:first-child,
         height: 100%;
 }
 
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
 
 
 /* Google Fonts */

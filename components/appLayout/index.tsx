@@ -1,24 +1,12 @@
 import React from 'react';
-import Aside from './sections/Aside';
-import Mydata from './sections/Mydata';
-import Search from './sections/Search';
+import { Container } from './styles';
 
 interface Props {
   children: React.ReactNode;
 }
 
 const AppLayout = ({ children }: Props) => {
-  return (
-    <>
-      <div style={{ position: 'relative' }}>
-        <Aside />
-        <Mydata />
-        <Search />
-      </div>
-
-      <div>{children}</div>
-    </>
-  );
+  return <Container>{children}</Container>;
 };
 
 export default AppLayout;
