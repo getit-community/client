@@ -14,14 +14,40 @@ import {
   DividerContainer,
   Divider,
   DividerText,
-  EmailLoginInput,
+  InputContainer,
+  EmailInput,
+  PasswordInput,
   NextLoginSessionBtn,
   ForgetPasswordBtn,
   SignInBtn,
   SignInAccent,
 } from './styles';
 
-const Login = () => {
+export interface LoginProps {
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  email: string;
+  handleEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  password: string;
+  handlePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  passwordInputRef: React.RefObject<HTMLInputElement>;
+  handleNextSession: () => void;
+  showPasswordInput: boolean;
+  fillFormComplete: boolean;
+  error: boolean;
+}
+
+const Login = ({
+  handleSubmit,
+  email,
+  handleEmail,
+  password,
+  handlePassword,
+  handleNextSession,
+  showPasswordInput,
+  fillFormComplete,
+  error,
+  passwordInputRef,
+}: LoginProps) => {
   return (
     <AppLayout>
       <Container>
@@ -29,7 +55,7 @@ const Login = () => {
           <CloseIcon />
         </ClosetBtn>
 
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <TitleContainer>
             <Title>Getit 로그인</Title>
           </TitleContainer>
@@ -48,15 +74,31 @@ const Login = () => {
             </LoginButton>
           </LoginBtnContainer>
           <DividerContainer>
-            <Divider>&nbsp;</Divider>
+            <Divider />
             <DividerText>또는</DividerText>
             <Divider />
           </DividerContainer>
-          <EmailLoginInput
-            type='text'
-            placeholder='이메일 주소를 입력해주세요.'
-          />
-          <NextLoginSessionBtn>다음</NextLoginSessionBtn>
+          <InputContainer show={showPasswordInput}>
+            <EmailInput
+              type='text'
+              placeholder='이메일 주소를 입력해주세요.'
+              onChange={handleEmail}
+              value={email}
+            />
+            {showPasswordInput && (
+              <PasswordInput
+                type='password'
+                placeholder='비밀번호를 입력해주세요.'
+                onChange={handlePassword}
+                value={password}
+                ref={passwordInputRef}
+              />
+            )}
+          </InputContainer>
+
+          <NextLoginSessionBtn onClick={handleNextSession}>
+            {fillFormComplete ? '확인' : '다음'}
+          </NextLoginSessionBtn>
           <ForgetPasswordBtn>비밀번호를 잊으셨나요?</ForgetPasswordBtn>
           <SignInBtn>
             계정이 없으신가요? <SignInAccent>가입하기</SignInAccent>

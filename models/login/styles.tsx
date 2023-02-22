@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Container = styled.div`
   position: relative;
@@ -96,8 +96,36 @@ const DividerText = styled.div`
   font-size: 1.7rem;
   white-space: nowrap;
 `;
+const InputContainer = styled.div<{ show: boolean }>`
+  display: flex;
+  flex-direction: column;
+  height: 7rem;
+  position: relative;
 
-const EmailLoginInput = styled.input`
+  ${(props) =>
+    props.show &&
+    css`
+      height: 14rem;
+    `}
+`;
+
+const EmailInput = styled.input`
+  border: 1px solid rgb(207, 217, 222);
+  height: 5rem;
+  border-radius: 0.4rem;
+  padding: 0 1rem;
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  z-index: 10;
+
+  &:focus {
+    border-style: solid;
+    border-color: #4dd290;
+    outline-style: none;
+  }
+`;
+
+const PasswordInput = styled.input`
   border: 1px solid rgb(207, 217, 222);
   height: 5rem;
   border-radius: 0.4rem;
@@ -105,13 +133,30 @@ const EmailLoginInput = styled.input`
   font-size: 1.6rem;
   margin-bottom: 2rem;
 
+  position: absolute;
+  width: 100%;
+  z-index: 9;
+
   &:focus {
     border-style: solid;
-    outline-color: #4dd290;
+    border-color: #4dd290;
+    outline-style: none;
+  }
+
+  animation-name: passwordInput;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  @keyframes passwordInput {
+    0% {
+      top: 0;
+    }
+    100% {
+      top: 7rem;
+    }
   }
 `;
 
-const NextLoginSessionBtn = styled.div`
+const NextLoginSessionBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +172,14 @@ const NextLoginSessionBtn = styled.div`
   height: 4rem;
   font-weight: 600;
   letter-spacing: 0.025rem;
+  border-style: none;
   cursor: pointer;
+
+  &:active {
+    background-color: #3da571;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
 `;
 
 const ForgetPasswordBtn = styled.div`
@@ -173,7 +225,9 @@ export {
   DividerContainer,
   Divider,
   DividerText,
-  EmailLoginInput,
+  InputContainer,
+  EmailInput,
+  PasswordInput,
   NextLoginSessionBtn,
   ForgetPasswordBtn,
   SignInBtn,
