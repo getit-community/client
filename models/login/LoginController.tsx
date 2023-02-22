@@ -6,10 +6,10 @@ import React, {
   useRef,
 } from 'react';
 import { useRouter } from 'next/router';
-import Login from './index';
+import LoginView from './LoginView';
 import { loginApi } from 'apis/login';
 
-const Controller = () => {
+const LoginController = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
@@ -107,7 +107,7 @@ const Controller = () => {
     error,
   };
 
-  return <Login {...props} />;
+  return <LoginView {...props} />;
 };
 
-export default Controller;
+export default LoginController;
