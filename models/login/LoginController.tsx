@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from 'react';
 import { useRouter } from 'next/router';
-import LoginView from './LoginView';
+import LoginView, { LoginViewProps } from './LoginView';
 import { loginApi } from 'apis/login';
 
 const LoginController = () => {
@@ -94,7 +94,15 @@ const LoginController = () => {
     }
   }, [email, password]);
 
-  const props = {
+  const handleJoinRouting = useCallback(() => {
+    router.push('/join');
+  }, [router]);
+
+  const handlePwInquiryRouting = useCallback(() => {
+    router.push('/pwInquiry');
+  }, [router]);
+
+  const props: LoginViewProps = {
     handleSubmit,
     email,
     handleEmail,
@@ -105,6 +113,8 @@ const LoginController = () => {
     showPasswordInput,
     fillFormComplete,
     error,
+    handleJoinRouting,
+    handlePwInquiryRouting,
   };
 
   return <LoginView {...props} />;

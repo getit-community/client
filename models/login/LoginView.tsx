@@ -23,7 +23,7 @@ import {
   SignInAccent,
 } from './styles';
 
-export interface LoginProps {
+export interface LoginViewProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   email: string;
   handleEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -34,20 +34,24 @@ export interface LoginProps {
   showPasswordInput: boolean;
   fillFormComplete: boolean;
   error: boolean;
+  handleJoinRouting: () => void;
+  handlePwInquiryRouting: () => void;
 }
 
-const Login = ({
+const LoginView = ({
   handleSubmit,
   email,
   handleEmail,
   password,
   handlePassword,
+  passwordInputRef,
   handleNextSession,
   showPasswordInput,
   fillFormComplete,
   error,
-  passwordInputRef,
-}: LoginProps) => {
+  handleJoinRouting,
+  handlePwInquiryRouting,
+}: LoginViewProps) => {
   return (
     <AppLayout>
       <Container>
@@ -99,9 +103,12 @@ const Login = ({
           <NextLoginSessionBtn onClick={handleNextSession}>
             {fillFormComplete ? '확인' : '다음'}
           </NextLoginSessionBtn>
-          <ForgetPasswordBtn>비밀번호를 잊으셨나요?</ForgetPasswordBtn>
+          <ForgetPasswordBtn onClick={handlePwInquiryRouting}>
+            비밀번호를 잊으셨나요?
+          </ForgetPasswordBtn>
           <SignInBtn>
-            계정이 없으신가요? <SignInAccent>가입하기</SignInAccent>
+            계정이 없으신가요?{' '}
+            <SignInAccent onClick={handleJoinRouting}>가입하기</SignInAccent>
           </SignInBtn>
         </Form>
       </Container>
@@ -109,4 +116,4 @@ const Login = ({
   );
 };
 
-export default Login;
+export default LoginView;

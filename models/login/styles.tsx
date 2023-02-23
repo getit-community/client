@@ -210,6 +210,7 @@ const SignInBtn = styled.div`
 const SignInAccent = styled.span`
   color: #4dd290;
   font-weight: 500;
+  cursor: pointer;
 `;
 
 export {
