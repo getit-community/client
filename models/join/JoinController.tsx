@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import JoinView, { JoinViewProps } from './JoinView';
 import useInput from 'hooks/useInput';
+import { useDispatch } from 'react-redux';
+import { emailAuth } from 'reducers/join';
 
 const JoinController = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [email, onChangeEmail] = useInput('');
   const [emailInvalidFormatError, setEmailInvalidFormatError] = useState(false);
@@ -42,16 +45,20 @@ const JoinController = () => {
       }
 
       if (fillFormComplete && isPasswordMatch) {
-        console.log({ email, password, passwordCheck }); // dispatch email & password info
+        if (email === null || password === null) return;
+
+        let data = { email, password };
+
+        dispatch(emailAuth(data));
 
         router.push('/join/emailAuth');
       }
     },
     [
       router,
+      dispatch,
       email,
       password,
-      passwordCheck,
       checkEmailValidateFormat,
       checkPasswordMatch,
       fillFormComplete,
