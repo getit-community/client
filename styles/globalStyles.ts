@@ -48,7 +48,7 @@ a {
   font-style: normal;
   font-weight: 400; // default font weight
   font-display: swap;
-  src: url('/static/NotoSansKR-Regular.otf') format('opentype');
+  src: url('/static/fonts/NotoSansKR-Regular.otf') format('opentype');
 }
 
 @font-face {
