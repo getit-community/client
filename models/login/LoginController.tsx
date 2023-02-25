@@ -20,6 +20,10 @@ const LoginController = () => {
 
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
+  const handleClose = useCallback(() => {
+    router.back();
+  }, [router]);
+
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -55,6 +59,12 @@ const LoginController = () => {
 
     [email, password, router],
   );
+
+  const handleSocialLogin = useCallback((event: React.MouseEvent) => {
+    if (!event) return;
+    const target = event.currentTarget as HTMLDivElement;
+    console.log(target.getAttribute('data-name'));
+  }, []);
 
   const handleEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +113,6 @@ const LoginController = () => {
   }, [router]);
 
   const props: LoginViewProps = {
-    handleSubmit,
     email,
     handleEmail,
     password,
@@ -115,6 +124,9 @@ const LoginController = () => {
     error,
     handleJoinRouting,
     handlePwInquiryRouting,
+    handleClose,
+    handleSubmit,
+    handleSocialLogin,
   };
 
   return <LoginView {...props} />;

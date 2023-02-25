@@ -1,30 +1,20 @@
 import React from 'react';
 import AppLayout from 'components/appLayout';
-import { GoogleIcon, GithubIcon, CloseIcon } from 'assets/Icons';
+import { GoogleIcon, GithubIcon } from 'assets/Icons';
 import {
   Container,
-  ClosetBtn,
   Form,
-  TitleContainer,
-  Title,
-  LoginBtnContainer,
-  LoginButton,
-  ContentContainer,
-  Text,
-  DividerContainer,
-  Divider,
-  DividerText,
   InputContainer,
-  EmailInput,
   PasswordInput,
-  NextLoginSessionBtn,
-  ForgetPasswordBtn,
   SignInBtn,
   SignInAccent,
 } from './styles';
+import Button from 'components/commons/button';
+import Title from 'components/commons/title';
+import Divider from 'components/commons/divider';
+import Input from 'components/commons/input';
 
 export interface LoginViewProps {
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   email: string;
   handleEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
   password: string;
@@ -36,10 +26,15 @@ export interface LoginViewProps {
   error: boolean;
   handleJoinRouting: () => void;
   handlePwInquiryRouting: () => void;
+  handleClose: () => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleSocialLogin: (event: React.MouseEvent) => void;
 }
 
 const LoginView = ({
+  handleClose,
   handleSubmit,
+  handleSocialLogin,
   email,
   handleEmail,
   password,
@@ -55,37 +50,29 @@ const LoginView = ({
   return (
     <AppLayout>
       <Container>
-        <ClosetBtn>
-          <CloseIcon />
-        </ClosetBtn>
+        <Button type='close' onClick={handleClose} />
 
         <Form onSubmit={handleSubmit}>
-          <TitleContainer>
-            <Title>Getit 로그인</Title>
-          </TitleContainer>
-          <LoginBtnContainer>
-            <LoginButton>
-              <ContentContainer>
-                <GoogleIcon />
-                <Text>Google 계정으로 로그인</Text>
-              </ContentContainer>
-            </LoginButton>
-            <LoginButton>
-              <ContentContainer>
-                <GithubIcon />
-                <Text>Github 계정으로 로그인</Text>
-              </ContentContainer>
-            </LoginButton>
-          </LoginBtnContainer>
-          <DividerContainer>
-            <Divider />
-            <DividerText>또는</DividerText>
-            <Divider />
-          </DividerContainer>
+          <Title text='Getit 로그인' />
+
+          <Button
+            type='normal'
+            text='Google 계정으로 로그인'
+            icon={<GoogleIcon />}
+            name='google'
+            onClick={handleSocialLogin}
+          />
+          <Button
+            type='normal'
+            text='Github 계정으로 로그인'
+            icon={<GithubIcon />}
+            name='github'
+            onClick={handleSocialLogin}
+          />
+          <Divider type='text' text='또는' />
           <InputContainer show={showPasswordInput}>
-            <EmailInput
-              type='text'
-              placeholder='이메일 주소를 입력해주세요.'
+            <Input
+              placeholder={'이메일 주소를 입력해주세요.'}
               onChange={handleEmail}
               value={email}
             />
@@ -100,12 +87,19 @@ const LoginView = ({
             )}
           </InputContainer>
 
-          <NextLoginSessionBtn onClick={handleNextSession}>
-            {fillFormComplete ? '확인' : '다음'}
-          </NextLoginSessionBtn>
-          <ForgetPasswordBtn onClick={handlePwInquiryRouting}>
-            비밀번호를 잊으셨나요?
-          </ForgetPasswordBtn>
+          <Button
+            type='submit'
+            text={fillFormComplete ? '확인' : '다음'}
+            color='white'
+            onClick={handleNextSession}
+          />
+
+          <Button
+            type='normal'
+            text='비밀번호를 잊으셨나요?'
+            color='gray'
+            onClick={handlePwInquiryRouting}
+          />
           <SignInBtn>
             계정이 없으신가요?{' '}
             <SignInAccent onClick={handleJoinRouting}>가입하기</SignInAccent>
