@@ -43,9 +43,14 @@ const verticalInterval = {
 
 const colors = {
   theme: '#4dd290',
-  black: '#303038',
+  black: '#303038', // #3c4043
   white: '#ffffff',
+  lightGray: '#f2f2f2',
   gray: '#767678',
+  disabled: '#0f141950',
+  border: '#cfd9de',
+  hoverGreen: '#f0fff0',
+  activeGreen: '#3da571',
 };
 
 const deviceSizes = {};
