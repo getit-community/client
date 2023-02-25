@@ -1,49 +1,40 @@
 import React from 'react';
 import { CloseIcon } from 'assets/Icons';
 import {
-  NormalBtn,
+  NormalBtnContainer,
   ContentContainer,
   Text,
-  SubmitBtn,
+  SubmitBtnContainer,
   CloseBtnContainer,
   CloseIconContainer,
+  DisabledBtnContainer,
 } from './styles';
 
 interface ButtonProps {
-  type: 'normal' | 'close' | 'submit' | 'bottom';
-  onClick: (event: React.MouseEvent) => void;
+  type: 'normal' | 'close' | 'submit' | 'bottom' | 'disabled';
+  onClick?: (event: React.MouseEvent) => void;
   text?: string;
   icon?: React.ReactNode;
   name?: string;
   width?: `${string}rem`;
-  color?: 'black' | 'gray' | 'white';
 }
 
-const Button = ({
-  type,
-  text,
-  icon,
-  name,
-  width,
-  onClick,
-  color = 'black',
-}: ButtonProps) => {
+const Button = ({ type, text, icon, name, width, onClick }: ButtonProps) => {
   switch (type) {
     case 'normal':
       return (
-        // onClick 적용하기
-        <NormalBtn onClick={onClick}>
+        <NormalBtnContainer onClick={onClick}>
           <ContentContainer>
             {icon}
-            <Text color={color}>{text}</Text>
+            <Text color={'black'}>{text}</Text>
           </ContentContainer>
-        </NormalBtn>
+        </NormalBtnContainer>
       );
     case 'submit':
       return (
-        <SubmitBtn onClick={onClick}>
-          <Text color={color}>{text}</Text>
-        </SubmitBtn>
+        <SubmitBtnContainer onClick={onClick}>
+          <Text color={'white'}>{text}</Text>
+        </SubmitBtnContainer>
       );
     case 'close':
       return (
@@ -53,6 +44,15 @@ const Button = ({
           </CloseIconContainer>
         </CloseBtnContainer>
       );
+    case 'disabled':
+      return (
+        <DisabledBtnContainer>
+          <ContentContainer>
+            <Text color={'white'}>{text}</Text>
+          </ContentContainer>
+        </DisabledBtnContainer>
+      );
+
     case 'bottom':
       return <div></div>;
     default:

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const NormalBtn = styled.div`
+const NormalBtnContainer = styled.div`
   max-width: 30rem;
   width: 100%;
   font-size: ${(props) => props.theme.fontSizes.base};
@@ -32,6 +32,7 @@ const ContentContainer = styled.div`
 `;
 
 const Text = styled.div<{ color?: 'black' | 'gray' | 'white' }>`
+  font-size: 1.5rem;
   letter-spacing: 0.025rem;
 
   ${(props) => {
@@ -57,11 +58,8 @@ const Text = styled.div<{ color?: 'black' | 'gray' | 'white' }>`
   }}
 `;
 
-const SubmitBtn = styled.button`
-  font-size: ${(props) => props.theme.fontSizes.base};
+const SubmitBtnContainer = styled.button`
   background-color: ${(props) => props.theme.colors.theme};
-  color: #fff;
-  font-size: 1.5rem;
   margin-bottom: 2rem;
   border-radius: 25rem;
   height: 4rem;
@@ -75,6 +73,18 @@ const SubmitBtn = styled.button`
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
   }
+`;
+
+const DisabledBtnContainer = styled.button`
+  background-color: ${(props) => props.theme.colors.disabled};
+  margin-bottom: 2rem;
+  border-radius: 25rem;
+  max-width: 30rem;
+  height: 4rem;
+  font-weight: 600;
+  letter-spacing: 0.025rem;
+  border-style: none;
+  cursor: not-allowed;
 `;
 
 const CloseBtnContainer = styled.div`
@@ -101,10 +111,11 @@ const CloseIconContainer = styled.div`
 `;
 
 export {
-  NormalBtn,
+  NormalBtnContainer,
   ContentContainer,
   Text,
-  SubmitBtn,
+  SubmitBtnContainer,
   CloseBtnContainer,
   CloseIconContainer,
+  DisabledBtnContainer,
 };

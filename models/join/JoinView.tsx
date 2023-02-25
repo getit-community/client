@@ -1,20 +1,17 @@
 import React from 'react';
 import AppLayout from 'components/appLayout';
-import { CloseIcon } from 'assets/Icons';
+import Button from 'components/commons/button';
+import Title from 'components/commons/title';
+import Input from 'components/commons/input';
 import {
   Container,
-  ClosetBtn,
   Form,
-  TitleContainer,
-  Title,
   InputContainer,
-  Input,
   ErrorMessage,
-  NextBtn,
   PrivacyPolicy,
 } from './styles';
-
 export interface JoinViewProps {
+  handleClose: () => void;
   email: string | null;
   onChangeEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
   emailInvalidFormatError: boolean;
@@ -28,6 +25,7 @@ export interface JoinViewProps {
 }
 
 const JoinView = ({
+  handleClose,
   email,
   onChangeEmail,
   emailInvalidFormatError,
@@ -42,17 +40,12 @@ const JoinView = ({
   return (
     <AppLayout>
       <Container>
-        <ClosetBtn>
-          <CloseIcon />
-        </ClosetBtn>
+        <Button type='close' onClick={handleClose} />
         <Form onSubmit={handleSubmit}>
-          <TitleContainer>
-            <Title>Getit 계정을 생성하세요</Title>
-          </TitleContainer>
+          <Title text='Getit 계정을 생성하세요' />
 
           <InputContainer>
             <Input
-              type='text'
               placeholder='이메일'
               onChange={onChangeEmail}
               value={email as string}
@@ -83,7 +76,11 @@ const JoinView = ({
 
           <br />
 
-          <NextBtn disabled={!fillFormComplete}>다음</NextBtn>
+          {fillFormComplete ? (
+            <Button type='submit' text='다음' />
+          ) : (
+            <Button type='disabled' text='다음' />
+          )}
 
           <PrivacyPolicy>
             가입하면 <span>쿠키 사용</span>을 포함해 <span>이용약관</span> 및{' '}

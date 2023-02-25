@@ -2,15 +2,16 @@ import React from 'react';
 import { StyledInput } from './styles';
 
 interface InputProps {
+  type?: 'text' | 'password';
   value: string;
   placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ value, placeholder, onChange }: InputProps) => {
+const Input = ({ type = 'text', value, placeholder, onChange }: InputProps) => {
   return (
     <StyledInput
-      type='text'
+      type={type}
       value={value}
       placeholder={placeholder}
       onChange={onChange}

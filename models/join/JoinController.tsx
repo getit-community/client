@@ -16,6 +16,10 @@ const JoinController = () => {
   const [passwordMismatchError, setPasswordMismatchError] = useState(false);
   const [fillFormComplete, setFillFormComplete] = useState(false);
 
+  const handleClose = useCallback(() => {
+    router.push('/login');
+  }, [router]);
+
   const checkEmailValidateFormat = useCallback(() => {
     const emailValidationRegexp =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -93,6 +97,7 @@ const JoinController = () => {
   }, [email, password, passwordCheck]);
 
   const props: JoinViewProps = {
+    handleClose,
     email,
     onChangeEmail,
     emailInvalidFormatError,
