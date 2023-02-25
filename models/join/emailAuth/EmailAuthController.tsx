@@ -3,10 +3,12 @@ import useInput from 'hooks/useInput';
 import { emailAuthApi } from 'apis/join';
 import { useDispatch, useSelector } from 'react-redux';
 import EmailAuthView, { EmailAuthViewProps } from './EmailAuthView';
-import { JoinState, updateAuthNums } from 'reducers/join';
+import { updateAuthNums } from 'reducers/join';
 import { RootState } from 'store';
+import { useRouter } from 'next/router';
 
 const EmailAuthController = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const email = useSelector((state: RootState) => state.join.email);
   const authNums = useSelector((state: RootState) => state.join.authNums);
@@ -15,6 +17,10 @@ const EmailAuthController = () => {
   const [invalidAuthNumsError, setInvalidAuthNumsError] = useState(false);
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
+
+  const handleClose = useCallback(() => {
+    router.push('/join');
+  }, [router]);
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -82,6 +88,7 @@ const EmailAuthController = () => {
   }, [dispatch]);
 
   const props: EmailAuthViewProps = {
+    handleClose,
     inputAuthNums,
     onChangeInputAuthNums,
     invalidAuthNumsError,

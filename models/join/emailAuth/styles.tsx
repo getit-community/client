@@ -14,23 +14,6 @@ const Container = styled.div`
   user-select: none;
 `;
 
-const ClosetBtn = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 1rem;
-
-  &:hover {
-    border-radius: 50%;
-    background-color: rgba(15, 20, 25, 0.1);
-  }
-
-  &:active {
-    border-radius: 50%;
-    background-color: rgba(15, 20, 25, 0.2);
-  }
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -40,39 +23,10 @@ const Form = styled.form`
   padding: 0 3.2rem 4.8rem 3.2rem;
 `;
 
-const TitleContainer = styled.div`
-  height: 7.2rem;
-  margin-bottom: 2rem;
-`;
-
-const Title = styled.h1`
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  width: 100%;
-  font-size: ${(props) => props.theme.fontSizes.xxxlarge};
-  line-height: 3.2rem;
-`;
-
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100%;
-`;
-
-const Input = styled.input`
-  border: 1px solid rgb(207, 217, 222);
-  height: 5rem;
-  border-radius: 0.4rem;
-  padding: 0 1rem;
-  font-size: 1.6rem;
-  margin-bottom: 2rem;
-
-  &:focus {
-    border-style: solid;
-    border-color: #4dd290;
-    outline-style: none;
-  }
 `;
 
 const ErrorMessage = styled.div`
@@ -110,21 +64,25 @@ const NextBtn = styled.button`
 `;
 
 const NoticeForSpam = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #000;
   margin-bottom: 2rem;
   margin-top: 2rem;
 `;
 
+const Timer = styled.div`
+  font-size: 1.4rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+`;
+
 export {
   Container,
-  ClosetBtn,
   Form,
-  TitleContainer,
-  Title,
   InputContainer,
-  Input,
   ErrorMessage,
   NextBtn,
   NoticeForSpam,
+  Timer,
 };

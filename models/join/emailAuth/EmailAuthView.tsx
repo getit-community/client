@@ -1,21 +1,19 @@
-import { CloseIcon } from 'assets/Icons';
-import AppLayout from 'components/appLayout';
 import React from 'react';
+import AppLayout from 'components/appLayout';
 import {
-  ClosetBtn,
   Container,
-  InputContainer,
-  Title,
-  TitleContainer,
-  NextBtn,
   Form,
-  Input,
+  InputContainer,
   ErrorMessage,
   NoticeForSpam,
   Timer,
 } from './styles';
+import Button from 'components/commons/button';
+import Title from 'components/commons/title';
+import Input from 'components/commons/input';
 
 export interface EmailAuthViewProps {
+  handleClose: () => void;
   inputAuthNums: string | null;
   onChangeInputAuthNums: (event: React.ChangeEvent<HTMLInputElement>) => void;
   invalidAuthNumsError: boolean;
@@ -24,6 +22,7 @@ export interface EmailAuthViewProps {
 }
 
 const EmailAuthView = ({
+  handleClose,
   inputAuthNums,
   onChangeInputAuthNums,
   invalidAuthNumsError,
@@ -33,13 +32,10 @@ const EmailAuthView = ({
   return (
     <AppLayout>
       <Container>
-        <ClosetBtn>
-          <CloseIcon />
-        </ClosetBtn>
+        <Button type='close' onClick={handleClose} />
+
         <Form onSubmit={handleSubmit}>
-          <TitleContainer>
-            <Title>Getit 계정을 생성하세요</Title>
-          </TitleContainer>
+          <Title text='Getit 이메일 계정 인증' />
 
           <InputContainer>
             <Input
@@ -55,11 +51,11 @@ const EmailAuthView = ({
           </InputContainer>
 
           <NoticeForSpam>
-            메일이 전송되지 않았다면 스팸메일함을 확인해주세요.
+            메일이 전송되지 않았다면 스팸메일함을 확인해 주세요.
           </NoticeForSpam>
           <br />
 
-          <NextBtn>확인</NextBtn>
+          <Button type='submit' text='확인' />
         </Form>
       </Container>
     </AppLayout>
