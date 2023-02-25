@@ -1,16 +1,16 @@
 import { combineReducers, Reducer, AnyAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import userReducers, { UserState } from 'reducers/user';
-import joinReducers, { JoinState } from 'reducers/join';
+import userSlice, { UserState } from 'features/user';
+import signupSlice, { SignupState } from 'features/signup';
 
 export interface RootState {
   user: UserState;
-  join: JoinState;
+  signup: SignupState;
 }
 
 const combineReducer = combineReducers({
-  user: userReducers,
-  join: joinReducers,
+  user: userSlice,
+  signup: signupSlice,
 });
 
 export const rootReducer: Reducer<RootState, AnyAction> = (

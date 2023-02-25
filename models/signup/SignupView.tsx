@@ -14,9 +14,10 @@ export interface JoinViewProps {
   handleClose: () => void;
   email: string | null;
   onChangeEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  emailInvalidFormatError: boolean;
+  emailInvalidError: boolean;
   password: string | null;
   onChangePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  passwordRestrictionError: boolean;
   passwordCheck: string | null;
   onChangePasswordCheck: (event: React.ChangeEvent<HTMLInputElement>) => void;
   passwordMismatchError: boolean;
@@ -28,9 +29,10 @@ const JoinView = ({
   handleClose,
   email,
   onChangeEmail,
-  emailInvalidFormatError,
+  emailInvalidError,
   password,
   onChangePassword,
+  passwordRestrictionError,
   passwordCheck,
   onChangePasswordCheck,
   passwordMismatchError,
@@ -50,7 +52,7 @@ const JoinView = ({
               onChange={onChangeEmail}
               value={email as string}
             />
-            {emailInvalidFormatError && (
+            {emailInvalidError && (
               <ErrorMessage>올바른 이메일을 입력해 주세요.</ErrorMessage>
             )}
           </InputContainer>
@@ -61,6 +63,11 @@ const JoinView = ({
               onChange={onChangePassword}
               value={password as string}
             />
+            {passwordRestrictionError && (
+              <ErrorMessage>
+                영문자, 숫자, 특수문자 조합 8 ~ 20자리
+              </ErrorMessage>
+            )}
           </InputContainer>
           <InputContainer>
             <Input

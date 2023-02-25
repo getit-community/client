@@ -1,6 +1,6 @@
 import { serverInstance } from 'apis/axios';
 
-interface Data {
+interface EmailAuthApiData {
   email: string;
 }
 
@@ -11,7 +11,7 @@ export interface EmailAuthApiRes {
 }
 
 export const emailAuthApi = async (
-  data: Data,
+  data: EmailAuthApiData,
 ): Promise<EmailAuthApiRes | undefined> => {
   try {
     const response = await serverInstance.post('auth/email', data);

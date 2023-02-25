@@ -1,40 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface JoinState {
+export interface SignupState {
   email: string;
   password: string;
   authNums?: string;
 }
 
-const initialState: JoinState = {
+const initialState: SignupState = {
   email: '',
   password: '',
   authNums: '',
 };
 
-const joinSlice = createSlice({
-  name: 'join',
+const signupSlice = createSlice({
+  name: 'signup',
   initialState,
   reducers: {
-    emailAuth: (state, action: PayloadAction<Omit<JoinState, 'authNums'>>) => {
+    emailAuth: (
+      state,
+      action: PayloadAction<Omit<SignupState, 'authNums'>>,
+    ) => {
       const { email, password } = action.payload;
       state.email = email;
       state.password = password;
     },
     updateAuthNums: (
       state,
-      action: PayloadAction<Pick<JoinState, 'authNums'>>,
+      action: PayloadAction<Pick<SignupState, 'authNums'>>,
     ) => {
       state.authNums = action.payload.authNums;
     },
-    resetAuthNum: (state) => {
+    resetAuth: (state) => {
+      state.email = '';
+      state.password = '';
       state.authNums = '';
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { emailAuth, updateAuthNums, resetAuthNum } = joinSlice.actions;
+export const { emailAuth, updateAuthNums, resetAuth } = signupSlice.actions;
 
-export default joinSlice.reducer;
+export default signupSlice.reducer;
