@@ -1,4 +1,4 @@
-import EmailAuthController from 'models/join/emailAuth/EmailAuthController';
+import EmailAuthController from 'models/signup/emailAuth/EmailAuthController';
 import React from 'react';
 
 const EmailAuth = () => {
