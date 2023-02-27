@@ -6,8 +6,8 @@ import { AxiosError } from 'axios';
 import useInput from 'hooks/useInput';
 import EmailAuthView, { EmailAuthViewProps } from './EmailAuthView';
 import { resetAuth, updateAuthNums } from 'features/signup';
-import { emailAuthApi } from 'apis/join/emailAuth/postAuthEmail';
-import { signupApi, SignupApiData } from 'apis/join/postSignup';
+import { emailAuthApi } from 'apis/signup/emailAuth/postAuthEmail';
+import { signupApi, SignupApiData } from 'apis/signup/postSignup';
 
 const EmailAuthController = () => {
   const router = useRouter();
@@ -23,7 +23,7 @@ const EmailAuthController = () => {
   const [seconds, setSeconds] = useState(0);
 
   const handleClose = useCallback(() => {
-    router.push('/join');
+    router.replace('/signup');
   }, [router]);
 
   const handleSubmit = useCallback(
@@ -42,7 +42,7 @@ const EmailAuthController = () => {
           if (response?.success) {
             alert('회원가입 완료. 환영합니다 🎉');
             dispatch(resetAuth());
-            return router.push('/');
+            return router.replace('/');
           }
         } catch (error) {
           console.log(error);
