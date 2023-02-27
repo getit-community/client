@@ -8,6 +8,7 @@ import React, {
 import { useRouter } from 'next/router';
 import LoginView, { LoginViewProps } from './LoginView';
 import { loginApi } from 'apis/login';
+import { AxiosError } from 'axios';
 
 const LoginController = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const LoginController = () => {
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const handleClose = useCallback(() => {
-    router.back();
+    router.replace('/');
   }, [router]);
 
   const handleSubmit = useCallback(
@@ -41,19 +42,20 @@ const LoginController = () => {
       }
 
       if (email && password) {
-        const data = {
-          email,
-          password,
-        };
+        const data = { email, password };
+        try {
+          const result = await loginApi(data);
 
-        const result = await loginApi(data);
-
-        if (result?.success) {
-          router.push('/');
-        } else {
-          alert('유효하지 않는 계정입니다.');
+          if (result?.success) {
+            return router.replace('/');
+          }
+        } catch (error) {
+          const err = error as AxiosError<{
+            success: boolean;
+            message: string;
+          }>;
+          alert(err.response?.data.message);
         }
-        return;
       }
     },
 
@@ -93,19 +95,33 @@ const LoginController = () => {
     [],
   );
 
-  const handleNextSession = useCallback(() => {
-    if (!email) {
-      return;
-    } else {
-      setShowPasswordInput(true);
-      if (!password) {
-        passwordInputRef.current?.focus();
+  const handleEmailLogin = useCallback(async () => {
+    if (!email) return;
+
+    if (email) return setShowPasswordInput(true);
+
+    if (!password) return passwordInputRef.current?.focus();
+
+    if (email && password) {
+      const data = { email, password };
+      try {
+        const response = await loginApi(data);
+        if (response?.success) {
+          router.push('/');
+        }
+      } catch (error) {
+        const err = error as AxiosError<{
+          success: boolean;
+          message: string;
+        }>;
+
+        alert(err.response?.data.message);
       }
     }
-  }, [email, password]);
+  }, [email, password, router]);
 
-  const handleJoinRouting = useCallback(() => {
-    router.push('/join');
+  const handleSignupRouting = useCallback(() => {
+    router.push('/signup');
   }, [router]);
 
   const handlePwInquiryRouting = useCallback(() => {
@@ -113,19 +129,19 @@ const LoginController = () => {
   }, [router]);
 
   const props: LoginViewProps = {
+    handleClose,
+    handleSubmit,
     email,
     handleEmail,
     password,
     handlePassword,
     passwordInputRef,
-    handleNextSession,
+    handleEmailLogin,
     showPasswordInput,
     fillFormComplete,
     error,
-    handleJoinRouting,
+    handleSignupRouting,
     handlePwInquiryRouting,
-    handleClose,
-    handleSubmit,
     handleSocialLogin,
   };
 

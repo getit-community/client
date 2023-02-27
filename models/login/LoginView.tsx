@@ -20,11 +20,11 @@ export interface LoginViewProps {
   password: string;
   handlePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
   passwordInputRef: React.RefObject<HTMLInputElement>;
-  handleNextSession: () => void;
+  handleEmailLogin: () => void;
   showPasswordInput: boolean;
   fillFormComplete: boolean;
   error: boolean;
-  handleJoinRouting: () => void;
+  handleSignupRouting: () => void;
   handlePwInquiryRouting: () => void;
   handleClose: () => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -40,11 +40,11 @@ const LoginView = ({
   password,
   handlePassword,
   passwordInputRef,
-  handleNextSession,
+  handleEmailLogin,
   showPasswordInput,
   fillFormComplete,
   error,
-  handleJoinRouting,
+  handleSignupRouting,
   handlePwInquiryRouting,
 }: LoginViewProps) => {
   return (
@@ -90,19 +90,17 @@ const LoginView = ({
           <Button
             type='submit'
             text={fillFormComplete ? '확인' : '다음'}
-            color='white'
-            onClick={handleNextSession}
+            onClick={handleEmailLogin}
           />
 
           <Button
             type='normal'
             text='비밀번호를 잊으셨나요?'
-            color='gray'
             onClick={handlePwInquiryRouting}
           />
           <SignInBtn>
             계정이 없으신가요?{' '}
-            <SignInAccent onClick={handleJoinRouting}>가입하기</SignInAccent>
+            <SignInAccent onClick={handleSignupRouting}>가입하기</SignInAccent>
           </SignInBtn>
         </Form>
       </Container>
