@@ -73,7 +73,7 @@ const JoinController = () => {
 
         dispatch(emailAuth(data));
 
-        router.push('/join/emailAuth');
+        router.push('/signup/emailAuth');
       }
     },
     [

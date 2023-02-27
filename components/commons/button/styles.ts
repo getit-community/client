@@ -75,7 +75,7 @@ const SubmitBtnContainer = styled.button`
   }
 `;
 
-const DisabledBtnContainer = styled.button`
+const DisabledBtnContainer = styled.div`
   background-color: ${(props) => props.theme.colors.disabled};
   margin-bottom: 2rem;
   border-radius: 25rem;
