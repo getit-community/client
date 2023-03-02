@@ -1,17 +1,14 @@
-import React, {
-  useCallback,
-  useEffect,
-  useReducer,
-  useState,
-  useRef,
-} from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import LoginView, { LoginViewProps } from './LoginView';
 import { loginApi } from 'apis/login';
 import { AxiosError } from 'axios';
+import { useDispatch } from 'react-redux';
+import { updateUser } from 'features/user';
 
 const LoginController = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,9 +41,13 @@ const LoginController = () => {
       if (email && password) {
         const data = { email, password };
         try {
-          const result = await loginApi(data);
+          const response = await loginApi(data);
 
-          if (result?.success) {
+          if (response?.success) {
+            const { email, nickname } = response.data;
+
+            dispatch(updateUser({ email, nickname }));
+
             return router.replace('/');
           }
         } catch (error) {
@@ -59,14 +60,23 @@ const LoginController = () => {
       }
     },
 
-    [email, password, router],
+    [email, password, router, dispatch],
   );
 
-  const handleSocialLogin = useCallback((event: React.MouseEvent) => {
-    if (!event) return;
-    const target = event.currentTarget as HTMLDivElement;
-    console.log(target.getAttribute('data-name'));
-  }, []);
+  const handleSocialLogin = useCallback(
+    async (event: React.MouseEvent) => {
+      if (!event) return;
+      const target = event.currentTarget as HTMLDivElement;
+      const loginType = target.getAttribute('data-name') as 'google' | 'github';
+
+      if (loginType === 'google') {
+        return router.push(
+          `${process.env.NEXT_PUBLIC_SERVER_API_HOST}/user/login/google`,
+        );
+      }
+    },
+    [router],
+  );
 
   const handleEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

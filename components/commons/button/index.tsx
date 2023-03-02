@@ -23,7 +23,7 @@ const Button = ({ type, text, icon, name, width, onClick }: ButtonProps) => {
   switch (type) {
     case 'normal':
       return (
-        <NormalBtnContainer onClick={onClick}>
+        <NormalBtnContainer data-name={name} onClick={onClick}>
           <ContentContainer>
             {icon}
             <Text color={'black'}>{text}</Text>
