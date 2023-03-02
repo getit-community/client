@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import LoginView, { LoginViewProps } from './LoginView';
 import { loginApi } from 'apis/login';
@@ -74,6 +74,11 @@ const LoginController = () => {
           `${process.env.NEXT_PUBLIC_SERVER_API_HOST}/user/login/google`,
         );
       }
+      if (loginType === 'github') {
+        return router.push(
+          `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=user:email&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_CALLBACK_URL}`,
+        );
+      }
     },
     [router],
   );
@@ -136,6 +141,27 @@ const LoginController = () => {
 
   const handlePwInquiryRouting = useCallback(() => {
     router.push('/pwInquiry');
+  }, [router]);
+
+  useEffect(() => {
+    const { duplicate, hasEmailInfo, error } = router.query;
+
+    if (hasEmailInfo === 'false') {
+      alert(
+        'github 계정에 이메일이 등록되어 있지 않습니다. 등록 후 이용해 주세요.',
+      );
+      router.replace('/login');
+    }
+
+    if (duplicate === 'true') {
+      alert('동일한 이메일로 가입된 사용자가 존재합니다.');
+      router.replace('/login');
+    }
+
+    if (error === 'true') {
+      alert('문제가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+      router.replace('/login');
+    }
   }, [router]);
 
   const props: LoginViewProps = {
