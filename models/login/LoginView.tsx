@@ -15,6 +15,7 @@ import Divider from 'components/commons/divider';
 import Input from 'components/commons/input';
 
 export interface LoginViewProps {
+  isMobile: null | boolean;
   email: string;
   handleEmail: (event: React.ChangeEvent<HTMLInputElement>) => void;
   password: string;
@@ -32,6 +33,7 @@ export interface LoginViewProps {
 }
 
 const LoginView = ({
+  isMobile,
   handleClose,
   handleSubmit,
   handleSocialLogin,
@@ -50,7 +52,7 @@ const LoginView = ({
   return (
     <AppLayout>
       <Container>
-        <Button type='close' onClick={handleClose} />
+        <Button type='close' onClick={handleClose} isMobile={isMobile} />
 
         <Form onSubmit={handleSubmit}>
           <Title text='Getit 로그인' />

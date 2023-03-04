@@ -95,19 +95,35 @@ const CloseBtnContainer = styled.div`
   position: relative;
 `;
 
-const CloseIconContainer = styled.div`
+const CloseIconContainer = styled.div<{ isMobile: null | boolean }>`
   display: flex;
   padding: 0.3rem;
 
-  &:hover {
-    border-radius: 25rem;
-    background-color: rgba(15, 20, 25, 0.1);
-  }
+  ${(props) => {
+    if (props.isMobile) {
+      return css`
+        &:active {
+          border-radius: 25rem;
+          background-color: rgba(15, 20, 25, 0.1);
+        }
+      `;
+    }
 
-  &:active {
-    border-radius: 25rem;
-    background-color: rgba(15, 20, 25, 0.2);
-  }
+    if (!props.isMobile) {
+      return css`
+        &:hover {
+          border-radius: 25rem;
+          background-color: rgba(15, 20, 25, 0.1);
+        }
+
+        &:active {
+          border-radius: 25rem;
+          background-color: rgba(15, 20, 25, 0.2);
+        }
+      `;
+    }
+  }}
+  cursor: pointer;
 `;
 
 export {

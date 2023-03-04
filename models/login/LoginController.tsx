@@ -3,12 +3,14 @@ import { useRouter } from 'next/router';
 import LoginView, { LoginViewProps } from './LoginView';
 import { loginApi } from 'apis/login';
 import { AxiosError } from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from 'features/user';
+import { RootState } from 'store';
 
 const LoginController = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const isMobile = useSelector((state: RootState) => state.user.isMobile);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -165,6 +167,7 @@ const LoginController = () => {
   }, [router]);
 
   const props: LoginViewProps = {
+    isMobile,
     handleClose,
     handleSubmit,
     email,

@@ -5,9 +5,11 @@ import { Provider } from 'react-redux';
 import { wrapper } from 'store/index';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
+import CheckUserAgent from 'components/CheckUserAgent';
 
 function MyApp({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
+
   return (
     <>
       <Head>
@@ -18,6 +20,7 @@ function MyApp({ Component, ...rest }: AppProps) {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Provider store={store}>
+          <CheckUserAgent />
           <Component {...props.pageProps} />;
         </Provider>
       </ThemeProvider>

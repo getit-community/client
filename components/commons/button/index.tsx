@@ -17,9 +17,18 @@ interface ButtonProps {
   icon?: React.ReactNode;
   name?: string;
   width?: `${string}rem`;
+  isMobile?: null | boolean;
 }
 
-const Button = ({ type, text, icon, name, width, onClick }: ButtonProps) => {
+const Button = ({
+  type,
+  text,
+  icon,
+  name,
+  width,
+  onClick,
+  isMobile,
+}: ButtonProps) => {
   switch (type) {
     case 'normal':
       return (
@@ -39,7 +48,10 @@ const Button = ({ type, text, icon, name, width, onClick }: ButtonProps) => {
     case 'close':
       return (
         <CloseBtnContainer>
-          <CloseIconContainer onClick={onClick}>
+          <CloseIconContainer
+            onClick={onClick}
+            isMobile={isMobile ? true : false}
+          >
             <CloseIcon />
           </CloseIconContainer>
         </CloseBtnContainer>
