@@ -1,22 +1,18 @@
 import { serverInstance } from 'apis/axios';
 
-export interface LoginApiData {
+export interface LoginAPIReq {
   email: string;
   password: string;
 }
 
-export interface loginApiRes {
+export interface loginAPIRes {
   success: boolean;
   message: string | null;
-  data: {
-    email: string;
-    nickname: string;
-  };
 }
 
-export const loginApi = async (
-  data: LoginApiData,
-): Promise<loginApiRes | undefined> => {
+export const loginAPI = async (
+  data: LoginAPIReq,
+): Promise<loginAPIRes | undefined> => {
   const response = await serverInstance.post('user/login', data);
   return response.data;
 };

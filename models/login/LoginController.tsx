@@ -1,10 +1,9 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import LoginView, { LoginViewProps } from './LoginView';
-import { loginApi } from 'apis/login';
+import { loginAPI } from 'apis/login';
 import { AxiosError } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from 'features/user';
 import { RootState } from 'store';
 
 const LoginController = () => {
@@ -43,13 +42,9 @@ const LoginController = () => {
       if (email && password) {
         const data = { email, password };
         try {
-          const response = await loginApi(data);
+          const response = await loginAPI(data);
 
           if (response?.success) {
-            const { email, nickname } = response.data;
-
-            dispatch(updateUser({ email, nickname }));
-
             return router.replace('/');
           }
         } catch (error) {
@@ -62,7 +57,7 @@ const LoginController = () => {
       }
     },
 
-    [email, password, router, dispatch],
+    [email, password, router],
   );
 
   const handleSocialLogin = useCallback(
@@ -122,9 +117,10 @@ const LoginController = () => {
     if (email && password) {
       const data = { email, password };
       try {
-        const response = await loginApi(data);
+        const response = await loginAPI(data);
+
         if (response?.success) {
-          router.push('/');
+          return router.replace('/');
         }
       } catch (error) {
         const err = error as AxiosError<{
@@ -135,7 +131,7 @@ const LoginController = () => {
         alert(err.response?.data.message);
       }
     }
-  }, [email, password, router]);
+  }, [email, password, router, dispatch]);
 
   const handleSignupRouting = useCallback(() => {
     router.push('/signup');
