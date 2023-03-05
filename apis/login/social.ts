@@ -1,17 +1,17 @@
 import { serverInstance } from 'apis/axios';
 
-export interface SocialLoginApiData {
+export interface SocialLoginAPIReq {
   loginType: 'google' | 'github';
 }
 
-export interface SocialloginApiRes {
+export interface SocialLoginAPIRes {
   success: boolean;
   message: string | null;
 }
 
-export const socialLoginApi = async (
-  data: SocialLoginApiData,
-): Promise<SocialloginApiRes | undefined> => {
+export const socialLoginAPI = async (
+  data: SocialLoginAPIReq,
+): Promise<SocialLoginAPIRes | undefined> => {
   const response = await serverInstance.get(`user/login/${data.loginType}`);
   return response.data;
 };

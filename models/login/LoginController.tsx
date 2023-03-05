@@ -73,7 +73,7 @@ const LoginController = () => {
       }
       if (loginType === 'github') {
         return router.push(
-          `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&scope=user:email&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_CALLBACK_URL}`,
+          `${process.env.NEXT_PUBLIC_SERVER_API_HOST}/user/login/github`,
         );
       }
     },
@@ -131,7 +131,7 @@ const LoginController = () => {
         alert(err.response?.data.message);
       }
     }
-  }, [email, password, router, dispatch]);
+  }, [email, password, router]);
 
   const handleSignupRouting = useCallback(() => {
     router.push('/signup');
@@ -146,7 +146,7 @@ const LoginController = () => {
 
     if (hasEmailInfo === 'false') {
       alert(
-        'github 계정에 이메일이 등록되어 있지 않습니다. 등록 후 이용해 주세요.',
+        '로그인한 계정에 이메일 정보가 없습니다. 이메일 정보를 등록해주세요.',
       );
       router.replace('/login');
     }
