@@ -45,6 +45,9 @@ const LoginController = () => {
           const response = await loginAPI(data);
 
           if (response?.success) {
+            if (response.message === 'resetPassword') {
+              return router.replace('/resetPassword');
+            }
             return router.replace('/');
           }
         } catch (error) {

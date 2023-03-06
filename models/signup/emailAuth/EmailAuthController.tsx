@@ -6,8 +6,8 @@ import { AxiosError } from 'axios';
 import useInput from 'hooks/useInput';
 import EmailAuthView, { EmailAuthViewProps } from './EmailAuthView';
 import { resetAuth, updateAuthNums } from 'features/signup';
-import { emailAuthApi } from 'apis/signup/emailAuth/postAuthEmail';
-import { signupApi, SignupApiData } from 'apis/signup/postSignup';
+import { emailAuthAPI } from 'apis/signup/emailAuth';
+import { signupAPI, SignupApiData } from 'apis/signup';
 
 const EmailAuthController = () => {
   const router = useRouter();
@@ -37,7 +37,7 @@ const EmailAuthController = () => {
       if (inputAuthNums === authNums) {
         try {
           const data: SignupApiData = { email, password, signupType: 'email' };
-          const response = await signupApi(data);
+          const response = await signupAPI(data);
 
           if (response?.success) {
             alert('회원가입 완료. 환영합니다 🎉');
@@ -69,8 +69,8 @@ const EmailAuthController = () => {
     try {
       (async () => {
         if (email) {
-          const response = await emailAuthApi({ email });
-          dispatch(updateAuthNums({ authNums: response?.authNums }));
+          const response = await emailAuthAPI({ email });
+          dispatch(updateAuthNums({ authNums: response?.data.authNums }));
         }
       })();
     } catch (error) {

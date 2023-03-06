@@ -11,7 +11,7 @@ export interface SignupApiRes {
   message: string;
 }
 
-export const signupApi = async (
+export const signupAPI = async (
   data: SignupApiData,
 ): Promise<SignupApiRes | undefined> => {
   const response = await serverInstance.post('user/signup', data);

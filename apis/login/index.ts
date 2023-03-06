@@ -5,14 +5,14 @@ export interface LoginAPIReq {
   password: string;
 }
 
-export interface loginAPIRes {
+export interface LoginAPIRes {
   success: boolean;
   message: string | null;
 }
 
 export const loginAPI = async (
   data: LoginAPIReq,
-): Promise<loginAPIRes | undefined> => {
+): Promise<LoginAPIRes | undefined> => {
   const response = await serverInstance.post('user/login', data);
   return response.data;
 };

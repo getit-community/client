@@ -1,18 +1,20 @@
 import { serverInstance } from 'apis/axios';
 
-interface EmailAuthApiData {
+interface EmailAuthAPIReq {
   email: string;
 }
 
-export interface EmailAuthApiRes {
+export interface EmailAuthAPIRes {
   success: boolean;
   message: string;
-  authNums: string;
+  data: {
+    authNums: string;
+  };
 }
 
-export const emailAuthApi = async (
-  data: EmailAuthApiData,
-): Promise<EmailAuthApiRes | undefined> => {
+export const emailAuthAPI = async (
+  data: EmailAuthAPIReq,
+): Promise<EmailAuthAPIRes | undefined> => {
   try {
     const response = await serverInstance.post('auth/email', data);
     return response.data;
