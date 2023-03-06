@@ -1,5 +1,6 @@
 import { pwInquiryAPI } from 'apis/pwInquiry';
-import { AxiosError } from 'axios';
+import { AxiosErrorData } from 'apis/types';
+import axios from 'axios';
 import useInput from 'hooks/useInput';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -44,12 +45,9 @@ const PwInquiryController = () => {
           alert(response?.message);
         }
       } catch (error) {
-        const err = error as AxiosError<{
-          success: boolean;
-          message: string;
-        }>;
-
-        alert(err.response?.data.message);
+        if (axios.isAxiosError<AxiosErrorData>(error)) {
+          alert(error.response?.data.message);
+        }
       }
     },
     [email, router, checkEmailFormatValidate],

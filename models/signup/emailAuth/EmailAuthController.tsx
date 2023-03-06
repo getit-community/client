@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { RootState } from 'store';
-import { AxiosError } from 'axios';
+import axios from 'axios';
 import useInput from 'hooks/useInput';
 import EmailAuthView, { EmailAuthViewProps } from './EmailAuthView';
 import { resetAuth, updateAuthNums } from 'features/signup';
 import { emailAuthAPI } from 'apis/signup/emailAuth';
 import { signupAPI, SignupApiData } from 'apis/signup';
+import { AxiosErrorData } from 'apis/types';
 
 const EmailAuthController = () => {
   const router = useRouter();
@@ -45,12 +46,9 @@ const EmailAuthController = () => {
             return router.replace('/');
           }
         } catch (error) {
-          console.log(error);
-          const err = error as AxiosError<{
-            success: boolean;
-            message: string;
-          }>;
-          alert(err.response?.data.message);
+          if (axios.isAxiosError<AxiosErrorData>(error)) {
+            alert(error.response?.data.message);
+          }
         }
       } else {
         if (authNums !== '') {

@@ -2,9 +2,10 @@ import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import LoginView, { LoginViewProps } from './LoginView';
 import { loginAPI } from 'apis/login';
-import { AxiosError } from 'axios';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
+import { AxiosErrorData } from 'apis/types';
 
 const LoginController = () => {
   const router = useRouter();
@@ -51,11 +52,9 @@ const LoginController = () => {
             return router.replace('/');
           }
         } catch (error) {
-          const err = error as AxiosError<{
-            success: boolean;
-            message: string;
-          }>;
-          alert(err.response?.data.message);
+          if (axios.isAxiosError<AxiosErrorData>(error)) {
+            alert(error.response?.data.message);
+          }
         }
       }
     },
@@ -126,12 +125,9 @@ const LoginController = () => {
           return router.replace('/');
         }
       } catch (error) {
-        const err = error as AxiosError<{
-          success: boolean;
-          message: string;
-        }>;
-
-        alert(err.response?.data.message);
+        if (axios.isAxiosError<AxiosErrorData>(error)) {
+          alert(error.response?.data.message);
+        }
       }
     }
   }, [email, password, router]);

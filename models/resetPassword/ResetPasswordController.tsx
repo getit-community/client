@@ -4,7 +4,8 @@ import ResetPasswordView, { ResetPasswordViewProps } from './ResetPasswordView';
 import { logoutAPI } from 'apis/logout';
 import { resetPasswordAPI } from 'apis/resetPassword';
 import useInput from 'hooks/useInput';
-import { AxiosError } from 'axios';
+import axios from 'axios';
+import { AxiosErrorData } from 'apis/types';
 
 const ResetPasswordController = () => {
   const router = useRouter();
@@ -59,12 +60,9 @@ const ResetPasswordController = () => {
             }
           }
         } catch (error) {
-          const err = error as AxiosError<{
-            success: boolean;
-            message: string;
-          }>;
-
-          alert(err.response?.data.message);
+          if (axios.isAxiosError<AxiosErrorData>(error)) {
+            alert(error.response?.data.message);
+          }
         }
       }
     },
