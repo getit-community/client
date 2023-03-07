@@ -41,8 +41,6 @@ const PwInquiryController = () => {
         if (response?.success) {
           alert(response.message);
           router.push('/login');
-        } else {
-          alert(response?.message);
         }
       } catch (error) {
         if (axios.isAxiosError<AxiosErrorData>(error)) {

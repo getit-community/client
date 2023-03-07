@@ -32,14 +32,16 @@ const JoinController = () => {
     return isEmailValidate;
   }, [email]);
 
-  const checkPasswordRestriction = useCallback(() => {
+  const checkPasswordValidate = useCallback(() => {
     // password 영문자, 숫자, 특수문자 조합 8 ~ 20자리 형식 확인 정규식
     const passwordValidationRegexp =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
 
-    const isCorrectPassword = passwordValidationRegexp.test(password as string);
+    if (typeof password === 'string') {
+      const isValidatePassword = passwordValidationRegexp.test(password);
 
-    return isCorrectPassword;
+      return isValidatePassword;
+    }
   }, [password]);
 
   const checkPasswordMatch = useCallback(() => {
@@ -52,7 +54,7 @@ const JoinController = () => {
 
       const isValidEmail = checkEmailFormatValidate();
       const isPasswordMatch = checkPasswordMatch();
-      const isCorrectPassword = checkPasswordRestriction();
+      const isCorrectPassword = checkPasswordValidate();
 
       if (!isValidEmail) {
         return setEmailInvalidError(true);
@@ -69,7 +71,7 @@ const JoinController = () => {
       if (fillFormComplete && isPasswordMatch) {
         if (email === null || password === null) return;
 
-        let data = { email, password };
+        const data = { email, password };
 
         dispatch(emailAuth(data));
 
@@ -82,7 +84,7 @@ const JoinController = () => {
       email,
       checkEmailFormatValidate,
       password,
-      checkPasswordRestriction,
+      checkPasswordValidate,
       checkPasswordMatch,
       fillFormComplete,
     ],
@@ -102,8 +104,7 @@ const JoinController = () => {
   }, [passwordCheck]);
 
   useEffect(() => {
-    let isFormComplete = Boolean(email && password && passwordCheck);
-    console.log('isFormComplete ===>', isFormComplete);
+    const isFormComplete = Boolean(email && password && passwordCheck);
 
     setFillFormComplete(isFormComplete);
   }, [email, password, passwordCheck]);

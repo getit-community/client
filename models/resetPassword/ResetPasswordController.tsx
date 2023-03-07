@@ -20,11 +20,11 @@ const ResetPasswordController = () => {
     const passwordValidationRegexp =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
 
-    const isCorrectPassword = passwordValidationRegexp.test(
-      newPassword as string,
-    );
+    if (typeof newPassword === 'string') {
+      const isValidatePassword = passwordValidationRegexp.test(newPassword);
 
-    return isCorrectPassword;
+      return isValidatePassword;
+    }
   }, [newPassword]);
 
   const checkPasswordMatch = useCallback(() => {
@@ -76,9 +76,15 @@ const ResetPasswordController = () => {
   );
 
   const handleLogout = useCallback(async () => {
-    const response = await logoutAPI();
-    if (response?.success) {
-      router.replace('/');
+    try {
+      const response = await logoutAPI();
+      if (response?.success) {
+        router.replace('/');
+      }
+    } catch (error) {
+      if (axios.isAxiosError<AxiosErrorData>(error)) {
+        alert(error.response?.data.message);
+      }
     }
   }, [router]);
 
