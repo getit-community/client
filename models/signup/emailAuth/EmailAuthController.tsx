@@ -68,11 +68,17 @@ const EmailAuthController = () => {
       (async () => {
         if (email) {
           const response = await emailAuthAPI({ email });
-          dispatch(updateAuthNums({ authNums: response?.data.authNums }));
+          if (response?.success) {
+            return dispatch(
+              updateAuthNums({ authNums: response?.data.authNums }),
+            );
+          }
         }
       })();
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError<AxiosErrorData>(error)) {
+        alert(error.response?.data.message);
+      }
     }
 
     return () => {
@@ -95,14 +101,15 @@ const EmailAuthController = () => {
       }
     }, 1000);
 
-    if (minutes === 0 && seconds === 0) {
+    if ((!email && !password) || (minutes === 0 && seconds === 0)) {
       dispatch(resetAuth());
+      setMinutes(0);
     }
 
     return () => {
       clearInterval(countdown);
     };
-  }, [minutes, seconds, dispatch]);
+  }, [minutes, seconds, dispatch, email, password]);
 
   useEffect(() => {
     return () => {

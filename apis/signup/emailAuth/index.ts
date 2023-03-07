@@ -15,10 +15,6 @@ export interface EmailAuthAPIRes {
 export const emailAuthAPI = async (
   data: EmailAuthAPIReq,
 ): Promise<EmailAuthAPIRes | undefined> => {
-  try {
-    const response = await serverInstance.post('auth/email', data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await serverInstance.post('auth/email', data);
+  return response.data;
 };
