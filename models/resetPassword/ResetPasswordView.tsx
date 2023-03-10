@@ -67,8 +67,8 @@ const ResetPasswordView = ({
           </InputContainer>
 
           <Notice>
-            <span>임시 비밀번호</span>로 로그인한 경우 비밀번호를 재설정하지
-            않으면 <span>서비스 이용이 제한</span>이 됩니다.
+            <span>임시 비밀번호</span>로 로그인한 경우 비밀번호를{' '}
+            <span>재설정</span>하지 않으면 서비스 이용이 제한됩니다.
           </Notice>
 
           <Button type='submit' text='확인' />

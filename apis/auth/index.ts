@@ -4,6 +4,7 @@ export interface AuthAPIReq {}
 
 export interface AuthAPIRes {
   success: boolean;
+  message: null | string;
 }
 
 export const authAPI = async (): Promise<AuthAPIRes | undefined> => {

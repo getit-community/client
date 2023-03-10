@@ -1,8 +1,8 @@
 import { updateUserAgent } from 'features/user';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const CheckUserAgent = () => {
+const useCheckUserAgent = () => {
   const dispatch = useDispatch();
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
@@ -15,7 +15,7 @@ const CheckUserAgent = () => {
     dispatch(updateUserAgent({ isMobile }));
   }, [dispatch, isMobile]);
 
-  return <></>;
+  return null;
 };
 
-export default CheckUserAgent;
+export default useCheckUserAgent;
