@@ -9,20 +9,22 @@ import { AxiosErrorData } from 'apis/types';
 
 const LoginController = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const isMobile = useSelector((state: RootState) => state.user.isMobile);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPasswordInput, setShowPasswordInput] = useState(false);
   const [fillFormComplete, setFillFormComplete] = useState(false);
-  const [error, setError] = useState(false);
 
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const handleClose = useCallback(() => {
     router.replace('/');
   }, [router]);
+
+  useEffect(() => {
+    passwordInputRef.current?.focus();
+  }, [showPasswordInput]);
 
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,9 +36,6 @@ const LoginController = () => {
 
       if (email) {
         setShowPasswordInput(true);
-        if (!password) {
-          passwordInputRef.current?.focus();
-        }
       }
 
       if (email && password) {
@@ -45,10 +44,11 @@ const LoginController = () => {
           const response = await loginAPI(data);
 
           if (response?.success) {
-            if (response.message === 'resetPassword') {
+            if (response.message === 'needResetPassword') {
               return router.replace('/resetPassword');
+            } else {
+              return router.replace('/');
             }
-            return router.replace('/');
           }
         } catch (error) {
           if (axios.isAxiosError<AxiosErrorData>(error)) {
@@ -108,29 +108,6 @@ const LoginController = () => {
     [],
   );
 
-  const handleEmailLogin = useCallback(async () => {
-    if (!email) return;
-
-    if (email) return setShowPasswordInput(true);
-
-    if (!password) return passwordInputRef.current?.focus();
-
-    if (email && password) {
-      const data = { email, password };
-      try {
-        const response = await loginAPI(data);
-
-        if (response?.success) {
-          return router.replace('/');
-        }
-      } catch (error) {
-        if (axios.isAxiosError<AxiosErrorData>(error)) {
-          alert(error.response?.data.message);
-        }
-      }
-    }
-  }, [email, password, router]);
-
   const handleSignupRouting = useCallback(() => {
     router.push('/signup');
   }, [router]);
@@ -169,10 +146,8 @@ const LoginController = () => {
     password,
     handlePassword,
     passwordInputRef,
-    handleEmailLogin,
     showPasswordInput,
     fillFormComplete,
-    error,
     handleSignupRouting,
     handlePwInquiryRouting,
     handleSocialLogin,

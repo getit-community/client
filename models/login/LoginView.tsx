@@ -21,10 +21,8 @@ export interface LoginViewProps {
   password: string;
   handlePassword: (event: React.ChangeEvent<HTMLInputElement>) => void;
   passwordInputRef: React.RefObject<HTMLInputElement>;
-  handleEmailLogin: () => void;
   showPasswordInput: boolean;
   fillFormComplete: boolean;
-  error: boolean;
   handleSignupRouting: () => void;
   handlePwInquiryRouting: () => void;
   handleClose: () => void;
@@ -42,10 +40,8 @@ const LoginView = ({
   password,
   handlePassword,
   passwordInputRef,
-  handleEmailLogin,
   showPasswordInput,
   fillFormComplete,
-  error,
   handleSignupRouting,
   handlePwInquiryRouting,
 }: LoginViewProps) => {
@@ -89,11 +85,7 @@ const LoginView = ({
             )}
           </InputContainer>
 
-          <Button
-            type='submit'
-            text={fillFormComplete ? '확인' : '다음'}
-            onClick={handleEmailLogin}
-          />
+          <Button type='submit' text={fillFormComplete ? '확인' : '다음'} />
 
           <Button
             type='normal'
