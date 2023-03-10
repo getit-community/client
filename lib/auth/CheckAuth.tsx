@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { NextComponentType } from 'next';
 import { useRouter } from 'next/router';
 import { authAPI } from 'apis/auth';
@@ -15,18 +15,17 @@ const CheckAuth = ({ Component, Props }: CheckAuthProps) => {
 
   useEffect(() => {
     (async () => {
+      const path = router.pathname;
       const response = await authAPI();
 
-      // prevent infinite routing loop
-      if (router.pathname === '/resetPassword') {
-        return;
-      }
-
       if (response?.success) {
-        const path = router.pathname;
-
         if (response.message === 'needResetPassword') {
-          return router.replace('/resetPassword');
+          // prevent infinite routing loop
+          if (router.pathname === '/resetPassword') {
+            return;
+          } else {
+            return router.replace('/resetPassword');
+          }
         }
 
         switch (path) {
@@ -54,6 +53,14 @@ const CheckAuth = ({ Component, Props }: CheckAuthProps) => {
             break;
         }
       } else {
+        switch (path) {
+          case '/resetPassword':
+            router.replace('/');
+            break;
+
+          default:
+            break;
+        }
       }
     })();
   }, [router]);
