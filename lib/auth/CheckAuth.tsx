@@ -3,6 +3,8 @@ import { NextComponentType } from 'next';
 import { useRouter } from 'next/router';
 import { authAPI } from 'apis/auth';
 import useCheckUserAgent from 'hooks/useCheckUserAgent';
+import { updateUser } from 'features/user';
+import { useDispatch } from 'react-redux';
 
 interface CheckAuthProps {
   Component: NextComponentType;
@@ -11,6 +13,7 @@ interface CheckAuthProps {
 
 const CheckAuth = ({ Component, Props }: CheckAuthProps) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   useCheckUserAgent();
 
   useEffect(() => {
@@ -19,6 +22,10 @@ const CheckAuth = ({ Component, Props }: CheckAuthProps) => {
       const response = await authAPI();
 
       if (response?.success) {
+        const { email, nickname } = response.data;
+
+        dispatch(updateUser({ email, nickname }));
+
         if (response.message === 'needResetPassword') {
           // prevent infinite routing loop
           if (router.pathname === '/resetPassword') {
