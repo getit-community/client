@@ -1,6 +1,6 @@
 import React from 'react';
 import AppLayout from 'components/appLayout';
-import { GoogleIcon, GithubIcon } from 'assets/Icons';
+import { GoogleIcon, GithubIcon } from 'assets/icons';
 import {
   Container,
   Form,

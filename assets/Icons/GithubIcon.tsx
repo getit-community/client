@@ -1,5 +1,5 @@
 import React from 'react';
-import GithubSvg from './Github.svg';
+import GithubSvg from 'public/static/icons/socialIcon/Github.svg';
 
 const GithubIcon = () => {
   return <GithubSvg />;

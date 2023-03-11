@@ -1,14 +1,8 @@
 import React from 'react';
-import MenuSvg from './menu.svg';
+import DensityMediumFill0 from 'public/static/icons/MenuIcon/density_medium_FILL0.svg';
 
-interface IconProps {
-  width: `${string}rem`;
-  height: `${string}rem`;
-  color?: string;
-}
-
-const MenuIcons = ({ width, height, color }: IconProps) => {
-  return <MenuSvg width={width} height={height} fill={color} />;
+const MenuIcon = () => {
+  return <DensityMediumFill0 />;
 };
 
-export default MenuIcons;
+export default MenuIcon;

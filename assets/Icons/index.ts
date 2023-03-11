@@ -1,19 +1,15 @@
+import CloseIcon from './CloseIcon';
 import MenuIcons from './MenuIcon';
-import MicIcons from './MicIcon';
-import BookmarkIcon from './BookmarkIcon';
-import NotificationsIcon from './NotificationsIcon';
-import ProfileIcon from './ProfileIcon';
+import AccountCircleIcon from './AccountCircleIcon';
 import GoogleIcon from './GoogleIcon';
 import GithubIcon from './GithubIcon';
-import CloseIcon from './CloseIcon';
+import SearchIcon from './SearchIcon';
 
 export {
+  CloseIcon,
   MenuIcons,
-  MicIcons,
-  BookmarkIcon,
-  NotificationsIcon,
-  ProfileIcon,
+  AccountCircleIcon,
   GoogleIcon,
   GithubIcon,
-  CloseIcon,
+  SearchIcon,
 };

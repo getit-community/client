@@ -6,7 +6,11 @@ import {
   NotificationContainer,
   ProfileContainer,
 } from './MydataStyles';
-import { BookmarkIcon, NotificationsIcon, ProfileIcon } from 'assets/Icons';
+import {
+  // BookmarkIcon,
+  // NotificationsIcon,
+  AccountCircleIcon,
+} from 'assets/icons';
 import Link from 'next/link';
 
 const Mydata = () => {
@@ -15,18 +19,18 @@ const Mydata = () => {
       <IconContainer>
         <Link href=''>
           <BookmarkContainer>
-            <BookmarkIcon width={'3.3rem'} height={'3.3rem'} />
+            {/* <BookmarkIcon width={'2rem'} height={'2rem'} /> */}
           </BookmarkContainer>
         </Link>
         <Link href=''>
           <NotificationContainer>
-            <NotificationsIcon width={'3.3rem'} height={'3.3rem'} />
+            {/* <NotificationsIcon width={'3.3rem'} height={'3.3rem'} /> */}
           </NotificationContainer>
         </Link>
         <Link href='/login' passHref>
           <a>
             <ProfileContainer>
-              <ProfileIcon width={'3.3rem'} height={'3.3rem'} />
+              <AccountCircleIcon fill={false} />
             </ProfileContainer>
           </a>
         </Link>

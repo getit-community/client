@@ -1,5 +1,5 @@
 import React from 'react';
-import { CloseIcon } from 'assets/Icons';
+import { CloseIcon } from 'assets/icons';
 import {
   NormalBtnContainer,
   ContentContainer,

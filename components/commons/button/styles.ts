@@ -97,7 +97,7 @@ const CloseBtnContainer = styled.div`
 
 const CloseIconContainer = styled.div<{ isMobile: null | boolean }>`
   display: flex;
-  padding: 0.3rem;
+  padding: 0.5rem;
 
   ${(props) => {
     if (props.isMobile) {

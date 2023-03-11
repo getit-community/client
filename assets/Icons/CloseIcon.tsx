@@ -1,8 +1,8 @@
 import React from 'react';
-import CloseSvg from './close.svg';
+import CloseFill0 from 'public/static/icons/CloseIcon/close_FILL0.svg';
 
 const CloseIcon = () => {
-  return <CloseSvg />;
+  return <CloseFill0 />;
 };
 
 export default CloseIcon;
